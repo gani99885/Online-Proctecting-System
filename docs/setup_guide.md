@@ -1,6 +1,6 @@
 # Setup Guide
 
-## 📌 Requirements
+##  Requirements
 
 Before running this project, install the following:
 
@@ -11,7 +11,7 @@ Before running this project, install the following:
 
 ---
 
-## ⚙️ Installation Steps
+##  Installation Steps
 
 ### 1. Clone the repository
 
@@ -57,7 +57,7 @@ npm start
 
 ---
 
-## ✅ Verification
+##  Verification
 
 * Server runs without errors
 * Client opens in browser
