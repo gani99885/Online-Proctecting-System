@@ -1,0 +1,33 @@
+flowchart LR
+    subgraph Client[React Client]
+        Student[Student Browser\nExam UI + Camera Capture]
+        Proctor[Proctor/Admin Browser\nMonitoring Dashboard]
+    end
+
+    subgraph Backend[Node.js Backend]
+        REST[Express REST API\nAuth + Exam + Answer + Score + Dispute APIs]
+        WS[WebSocket Layer\nSocket.IO / WebRTC Signaling]
+        Worker[Frame Analysis Worker\nRule-based or ML placeholder]
+    end
+
+    subgraph Data[Databases]
+        PG[(PostgreSQL\nusers, exams, questions, answers, scores, disputes)]
+        Mongo[(MongoDB\nVideoSession, FrameAnalysis)]
+        Redis[(Redis / Memurai\nsessions, locks, live flags, pub/sub)]
+    end
+
+    Student -->|REST: login, fetch exam, submit answers| REST
+    Student -->|WebSocket/WebRTC: live proctoring events| WS
+    Proctor -->|REST: reports, disputes, scores| REST
+    Proctor -->|WebSocket: live alerts dashboard| WS
+
+    REST -->|SQL queries and ACID transactions| PG
+    REST -->|create/read session metadata| Mongo
+    REST -->|sessions, rate limits, submit locks| Redis
+
+    WS -->|presence, pub/sub, latest state| Redis
+    WS -->|store session metadata| Mongo
+    Worker -->|read frame events| WS
+    Worker -->|save analysis result| Mongo
+    Worker -->|publish suspicious alert| Redis
+    Redis -->|push alerts| WS

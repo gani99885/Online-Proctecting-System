@@ -1,0 +1,15 @@
+{
+  "name": "member1-proctoring-db-starter",
+  "version": "1.0.0",
+  "description": "Member 1 starter files for Online Proctoring DBMS project",
+  "type": "commonjs",
+  "scripts": {
+    "seed": "node scripts/seed-all.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.6.0",
+    "pg": "^8.12.0",
+    "redis": "^4.7.0"
+  }
+}
